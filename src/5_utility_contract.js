@@ -3,11 +3,10 @@
 
 const { ethers } = require("ethers");
 
-const ADDR = "0x4434C7C61817760F3Ee44f1851668faf2dF7F259";   // your contract address
+const ADDR = "0xf1cEb7004f708De6B92BD4B8D78CE9226160B6A4";   // your contract address
 const ABI = ethers.utils.Interface([
     // Query ERC20 infos Functions
     "function getBalances(address _ownerAddress, address[] memory _contractsAdress) public view returns (ERC20Infos[] memory infos)",
-    "function getValue(address _ownerAddress) public view returns (uint256) ",
 ]); 
 
 const ADDRESS = "0x0eAe9dF620744EB26ED3e73E3CCa3EBeDDa79485"; // some wallet address with token balance
@@ -24,17 +23,10 @@ const provider = new ethers.providers.JsonRpcProvider(process.env.MUMBAI_RPC);
 
 const test = async () => {
 	
-    console.log("Hello");
     const contract = new ethers.Contract(ADDR, ABI, provider);
-    // console.log(contract);
-    // const [addr1, addr2] = await ethers.getSigners();
-    
-    // console.log("get code")
-    // console.log(await provider.getCode(ADDR));
 
-    console.log(await contract.getValue(ADDRESS));
+    // console.log(await contract.getValue(ADDRESS));
     console.log(await contract.getBalances(ADDRESS, TOKENS));
-    const balances = await contract.getBalances(ADDRESS, TOKENS);
 	
 	return balances;
 };

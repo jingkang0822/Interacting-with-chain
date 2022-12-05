@@ -21,20 +21,17 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface UTILInterface extends ethers.utils.Interface {
   functions: {
     "getBalances(address,address[])": FunctionFragment;
-    "getValue(address)": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "getBalances",
     values: [string, string[]]
   ): string;
-  encodeFunctionData(functionFragment: "getValue", values: [string]): string;
 
   decodeFunctionResult(
     functionFragment: "getBalances",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getValue", data: BytesLike): Result;
 
   events: {};
 }
@@ -104,11 +101,6 @@ export class UTIL extends BaseContract {
         })[];
       }
     >;
-
-    getValue(
-      _ownerAddress: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
   };
 
   getBalances(
@@ -124,11 +116,6 @@ export class UTIL extends BaseContract {
     })[]
   >;
 
-  getValue(
-    _ownerAddress: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   callStatic: {
     getBalances(
       _ownerAddress: string,
@@ -142,11 +129,6 @@ export class UTIL extends BaseContract {
         decimals: number;
       })[]
     >;
-
-    getValue(
-      _ownerAddress: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
   };
 
   filters: {};
@@ -157,22 +139,12 @@ export class UTIL extends BaseContract {
       _contractsAdress: string[],
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    getValue(
-      _ownerAddress: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     getBalances(
       _ownerAddress: string,
       _contractsAdress: string[],
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getValue(
-      _ownerAddress: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
